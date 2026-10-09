@@ -39,7 +39,7 @@ int main()
             std::cout << "That is not a number, try again\n\n";
         }
         else {
-            if (x == nm1 + nm2 && tries == 3) {
+            if (x == nm1 + nm2) {
                 std:: cout << "Your guess of " + std::to_string(x) + " is correct!\n";
                 whileTrue = false;
             }
