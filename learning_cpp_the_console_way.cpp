@@ -7,12 +7,14 @@
 #include <random>
 
 
-int ask(int nm1, int nm2);
+int ask(int nm1, int nm2, int tries);
+
+bool whileTrue = true;
 
 int main()
 {
-    bool whileTrue = true;
     int x;
+    int tries = 0;
 
     std::random_device rd;
     std::mt19937 generator(rd());
@@ -22,8 +24,13 @@ int main()
     int nm1 = distribution(generator);
     int nm2 = distribution(generator);
 
+
     while (whileTrue) {
-        x = ask(nm1, nm2);
+        x = ask(nm1, nm2, tries);
+
+        if (!whileTrue) {
+            break;
+        }
 
         if (std::cin.fail()) {
             std::cin.clear();
@@ -32,22 +39,31 @@ int main()
             std::cout << "That is not a number, try again\n\n";
         }
         else {
-            if (x == nm1 + nm2) {
+            if (x == nm1 + nm2 && tries == 3) {
                 std:: cout << "Your guess of " + std::to_string(x) + " is correct!\n";
                 whileTrue = false;
             }
             else {
                 std::cout << "Your guess is incorrect!\n\n";
+                tries += 1;
             }
         }
     }
     return 0;
 }
 
-int ask(int nm1, int nm2) {
-    int input;
-    std::cout << "Whats " + std::to_string(nm1) + " + " + std::to_string(nm2) + "?\n";
-    std::cin >> input;
-    return input;
+int ask(int nm1, int nm2, int tries) {
+    if (tries <= 2)
+    {
+        int input;
+        std::cout << "Whats " + std::to_string(nm1) + " + " + std::to_string(nm2) + "?\n";
+        std::cin >> input;
+        return input;
+    }
+    else {
+        std::cout << "Game over\n";
+        whileTrue = false;
+        return -1;
+    }
 }
 
