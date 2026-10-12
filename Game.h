@@ -1,4 +1,8 @@
 #pragma once
+#include <iostream>
+#include <string>
+#include <random>
+#include <sstream>
 
 class Game {
 private:
@@ -8,7 +12,49 @@ private:
     bool isRunning;
 
 public:
-    Game(); // Constructor blauwdruk
-    bool keepPlaying();
-    void playTurn();
+    Game() {
+        tries = 0;
+        isRunning = true;
+
+        std::random_device rd;
+        std::mt19937 generator(rd());
+        std::uniform_int_distribution<int> distribution(1, 100);
+
+        nm1 = distribution(generator);
+        nm2 = distribution(generator);
+    }
+
+    bool keepPlaying() {
+        return isRunning;
+    }
+
+    void playTurn() {
+        if (tries > 2) {
+            std::cout << "Game over\n";
+            isRunning = false;
+            return;
+        }
+
+        std::cout << "Whats " + std::to_string(nm1) + " + " + std::to_string(nm2) + "?\n";
+
+        std::string invoerRegel;
+        if (std::getline(std::cin, invoerRegel)) {
+            std::stringstream ss(invoerRegel);
+            int guess;
+
+            if (ss >> guess) {
+                if (guess == nm1 + nm2) {
+                    std::cout << "Your guess of " + std::to_string(guess) + " is correct\n";
+                    isRunning = false;
+                }
+                else {
+                    std::cout << "Your guess is incorrect\n\n";
+                    tries += 1;
+                }
+                return;
+            }
+        }
+
+        std::cout << "That is not a number, try again\n\n";
+    }
 };
