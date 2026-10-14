@@ -1,3 +1,5 @@
+## fix this readme before continuing building the class
+
 # Learning C++: The Console Way
 
 A foundational repository dedicated to mastering C++ syntax, type safety, stream-handling, and defensive programming paradigms from scratch.
