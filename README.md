@@ -6,11 +6,11 @@ A repository dedicated to learning C++ syntax, type safety, stream handling, and
 
 Even in lightweight console applications, user input is unpredictable. The primary engineering goal of this project was to tackle user unpredictability caused by type-mismatches in standard input streams (`std::cin`).
 
-Instead of allowing the application to crash or enter an infinite loop state when a user injects alphanumeric characters instead of integers, the application implements a deterministic validation pipe:
+Instead of allowing the application to crash or enter an infinite loop state when a user injects alphanumeric characters instead of integers, the application implements a deterministic check before being allowed to continue:
 
-*   **Stream Failure Trapping:** Leverages `std::cin.fail()` to immediately intercept state corruption in the standard input sequence.
+*   **Validating user input as int:** Leverages `std::cin.fail()` to immediately intercept state corruption in the standard input sequence.
 *   **Buffer Flushing & Recovery:** Implements `std::cin.clear()` to reset the stream's internal error state, combined with `std::cin.ignore()` and `std::numeric_limits` to completely flush invalid data from the execution sequence.
-*   **Crash Resilience:** Ensures the execution lifecycle remains fully operational and crash-resistant, shifting the application gracefully back to a secure waiting state.
+*   **Anti-loop Resilience:** Ensures the execution lifecycle remains fully operational and crash-resistant, shifting the application gracefully back to a secure waiting state.
 
 ## 🎲 Modern Pseudo-Randomization
 
